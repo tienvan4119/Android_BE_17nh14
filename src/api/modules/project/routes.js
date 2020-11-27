@@ -12,5 +12,5 @@ const projectController = new ProjectController()
 // routes.post("/login", userController.Login.bind(userController))
 
 routes.post("/", projectController.addProject.bind(projectController))
-
+routes.post("/getGroup", projectController.getAllProjectOfEmail.bind(projectController))
 export default routes

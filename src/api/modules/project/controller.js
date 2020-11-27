@@ -15,5 +15,19 @@
            res.status(400).send(error.message);
        }
     }
+
+    async getAllProjectOfEmail(req, res){
+        try{
+            const email = req.body.email;
+            console.log(email)
+            const projectRef = await firestore.collection('projects');
+            console.log(projectRef)
+            const queryRef = await projectRef.where('member', 'array-contains', email).get();
+            
+            res.send(queryRef)
+        }catch(error){
+            res.status(404).send("Erorrrr")
+        }   
+    }
     
 }
