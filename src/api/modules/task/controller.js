@@ -1,36 +1,36 @@
  'use strict'
 
  const firebase = require('../../../../db')
- const Project = require('../../../models/project')
+ const Task = require('../../../models/Task')
  const firestore = firebase.firestore();
 
- export default class ProjectController{
+ export default class TaskController{
 
-    async addProject(req, res) {
+    async addTask(req, res) {
        try{
             const data = req.body;
-            await firestore.collection('projects').doc().set(data);
-            res.send('Projects has been created successfully');
+            await firestore.collection('tasks').doc().set(data);
+            res.send('task has been created successfully');
         }catch (error){
            res.status(400).send(error.message);
        }
     }
 
 
-    async getAllProject(req, res){
+    async getAllTask(req, res){
         try{
-            const projects = firestore.collection('projects');
-            const data  = await projects.get();
+            const tasks = firestore.collection('tasks');
+            const data  = await tasks.get();
             let groupArray = []
             if(data.empty){
                 res.status(404).send("No data found")
             }else{
                 data.forEach(doc => {
                     // console.log(doc.id, '=>', doc.data())
-                    const project = {
+                    const task = {
                         id : doc.id, ...doc.data()
                     }
-                    groupArray.push(project)
+                    groupArray.push(task)
                   });
                 res.send(groupArray)
             }
@@ -40,14 +40,14 @@
         }   
     }
 
-    //Get Project of 1 User
+    //Get Task of 1 User
 
-    async getAllProjectEachEmail(req, res){
+    async getAllTaskEachMember(req, res){
         try{
             
-            const projects = firestore.collection('projects');
+            const tasks = firestore.collection('tasks');
             const email = req.body.email;
-            const data = await projects.where('member', 'array-contains',
+            const data = await tasks.where('member', 'array-contains',
             email).get()
             
             let groupArray = []
@@ -55,10 +55,10 @@
                 res.status(404).send("No data found")
             }else{
                 data.forEach(doc => {
-                    const project = {
+                    const task = {
                         id : doc.id, ...doc.data()
                     }
-                    groupArray.push(project)
+                    groupArray.push(task)
                   })
                 res.send(groupArray)
             }
@@ -68,15 +68,15 @@
         }  
     }
 
-    //Get Project with id
-    async getProject(req, res){
+    //Get Task with id
+    async getTask(req, res){
         try{
             const id = req.params.id;
-            const projects = firestore.collection('projects').doc(id);
-            const data  = await projects.get();
+            const task = firestore.collection('tasks').doc(id);
+            const data  = await task.get();
             
             if(!data.exists){
-                res.status(404).send("Project with that given ID not found")
+                res.status(404).send("Task with that given ID not found")
             }else{           
                 const result = {
                     id: data.id, ...data.data()
@@ -89,13 +89,13 @@
         }   
     }
 
-    async updateProject(req, res){
+    async updateTask(req, res){
         try{
             const id = req.params.id;
             const data = req.body;
-            const projects = firestore.collection('projects').doc(id);
-            await projects.update(data);
-            const result = await projects.get() 
+            const task = firestore.collection('tasks').doc(id);
+            await task.update(data);
+            const result = await task.get() 
             const result2 = {
                 id: result.id, ...result.data()
             }   
@@ -105,10 +105,10 @@
         }
     }
 
-    async deleteProject(req, res){
+    async deleteTask(req, res){
         try{
             const id = req.params.id;
-            await firestore.collection('projects').doc(id).delete();
+            await firestore.collection('tasks').doc(id).delete();
             res.send("Delete Successfully")
         }catch(error){
             res.status(404).send(error)

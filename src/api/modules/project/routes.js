@@ -4,13 +4,10 @@ import ProjectController from './controller'
 const routes = Router()
 const projectController = new ProjectController()
 
-// routes.get("/" , userController.authenticateToken , userController.getMany.bind(userController))
-// routes.get("/:id", userController.getById.bind(userController))
-// routes.post("/", userController.createOne.bind(userController))
-// routes.put("/:id", userController.updateOne.bind(userController))
-// routes.post("/register",userController.Register.bind(userController))
-// routes.post("/login", userController.Login.bind(userController))
-
 routes.post("/", projectController.addProject.bind(projectController))
-routes.post("/getGroup", projectController.getAllProjectOfEmail.bind(projectController))
+routes.get("/", projectController.getAllProject.bind(projectController))
+routes.get("/getProjectEmail", projectController.getAllProjectEachEmail.bind(projectController))
+routes.get("/getProject/:id", projectController.getProject.bind(projectController))
+routes.put("/updateProject/:id", projectController.updateProject.bind(projectController))
+routes.delete("/deleteProject/:id", projectController.deleteProject.bind(projectController))
 export default routes
