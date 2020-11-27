@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import userRoutes from './modules/user/routes'
+import projectRoutes from './modules/project/routes'
 
 const routes = Router()
-routes.use('/users', userRoutes);
+routes.use('/projects', projectRoutes);
 export default routes
