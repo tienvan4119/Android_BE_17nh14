@@ -1,6 +1,6 @@
 
 import ExpressLoader from './loaders/ExpressLoader'
-import MongoLoader from './loaders/MongoLoader'
+// import MongoLoader from './loaders/MongoLoader'
 import env from 'dotenv'
 env.config()
 class App{
@@ -10,7 +10,7 @@ class App{
         await Promise.all(
             [
                 new ExpressLoader().boot(),
-                new MongoLoader().boot()
+                // new MongoLoader().boot()
             ]
         )
     }

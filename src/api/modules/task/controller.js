@@ -1,7 +1,7 @@
  'use strict'
 
  const firebase = require('../../../../db')
- const Task = require('../../../models/Task')
+ const Task = require('../../../models/task')
  const firestore = firebase.firestore();
 
  export default class TaskController{
