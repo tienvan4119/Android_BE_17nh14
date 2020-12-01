@@ -46,7 +46,7 @@
         try{
             
             const projects = firestore.collection('projects');
-            const email = req.body.email;
+            const {email} = req.params
             const data = await projects.where('member', 'array-contains',
             email).get()
             
