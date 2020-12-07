@@ -53,7 +53,6 @@ calendar.freebusy.query({
             return console.log("Calendar Event Created.")
         }
         )
-        return console.log("Sorry I'm Busy")
     }
 }
 )

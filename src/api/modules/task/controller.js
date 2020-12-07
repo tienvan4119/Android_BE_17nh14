@@ -16,7 +16,6 @@
        }
     }
 
-
     async getAllTask(req, res){
         try{
             const tasks = firestore.collection('tasks');
@@ -110,6 +109,22 @@
             const id = req.params.id;
             await firestore.collection('tasks').doc(id).delete();
             res.send("Delete Successfully")
+        }catch(error){
+            res.status(404).send(error)
+        }
+    }
+    
+    async moveTask(req, res){
+        try{
+            const id = req.params.id;
+            const task = firestore.collection('tasks').doc(id);
+            const task_position = req.body
+            await task.update(task_position)
+            const result = await task.get() 
+            const result2 = {
+                id: result.id, ...result.data()
+            }   
+            res.send(result2)
         }catch(error){
             res.status(404).send(error)
         }
