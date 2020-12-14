@@ -11,4 +11,5 @@ routes.get("/getTask/:id", taskController.getTask.bind(taskController))
 routes.put("/updateTask/:id", taskController.updateTask.bind(taskController))
 routes.delete("/deleteTask/:id", taskController.deleteTask.bind(taskController))
 routes.put("/updateState/:id", taskController.moveTask.bind(taskController))
+routes.get("/getTasksScreen/:id", taskController.getTaskEachScreen.bind(taskController))
 export default routes

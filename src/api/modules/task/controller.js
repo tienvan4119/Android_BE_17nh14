@@ -88,11 +88,30 @@
         }   
     }
 
-    // async getTaskEachScreen(req, res){
-    //     const id = req.params.id;
-    //     const {state} = req.body
-    //     const 
-    // }
+    async getTaskEachScreen(req, res){
+        try{
+            const id = req.params.id;
+            const {state} = req.query
+            console.log(typeof(id))
+            // const tasks = firestore.collection('tasks');
+            const data = await firestore.collection('tasks').where('project_id', '==', '1KTIJxTEUyLvD9vwk93c').where('state', '==', state).get();
+            // console.log(data)
+            let groupArray = []
+            if(data.empty){
+                res.status(200).send(groupArray)
+            }else{
+                data.forEach(doc => {
+                    const task = {
+                        id : doc.id, ...doc.data()
+                    }
+                    groupArray.push(task)
+                  })
+                res.status(200).send(groupArray)
+            }
+        }catch(error){
+            res.status(404).send(error)
+        }  
+    }
 
 
     async updateTask(req, res){
