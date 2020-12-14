@@ -23,7 +23,7 @@
             const data  = await projects.get();
             let groupArray = []
             if(data.empty){
-                res.status(404).send("No data found")
+                res.status(200).send(groupArray)
             }else{
                 data.forEach(doc => {
                     // console.log(doc.id, '=>', doc.data())
@@ -52,7 +52,7 @@
             
             let groupArray = []
             if(data.empty){
-                res.status(404).send("No data found")
+                res.status(200).send(groupArray)
             }else{
                 data.forEach(doc => {
                     const project = {
