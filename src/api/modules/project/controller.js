@@ -10,7 +10,7 @@
        try{
             const data = req.body;
             await firestore.collection('projects').doc().set(data);
-            res.send('Projects has been created successfully');
+            res.status(200).send('Projects has been created successfully');
         }catch (error){
            res.status(400).send(error.message);
        }
@@ -32,7 +32,7 @@
                     }
                     groupArray.push(project)
                   });
-                res.send(groupArray)
+                res.status(200).send(groupArray)
             }
              
         }catch(error){
@@ -60,7 +60,7 @@
                     }
                     groupArray.push(project)
                   })
-                res.send(groupArray)
+                res.status(200).send(groupArray)
             }
              
         }catch(error){
@@ -76,12 +76,12 @@
             const data  = await projects.get();
             
             if(!data.exists){
-                res.status(404).send("Project with that given ID not found")
+                res.status(200).send("Project with that given ID not found")
             }else{           
                 const result = {
                     id: data.id, ...data.data()
                 }   
-                res.send(result)
+                res.status(200).send(result)
             }
              
         }catch(error){
@@ -99,7 +99,7 @@
             const result2 = {
                 id: result.id, ...result.data()
             }   
-            res.send(result2)
+            res.status(200).send(result2)
         }catch(error){
             res.status(404).send(error)
         }
@@ -109,7 +109,7 @@
         try{
             const id = req.params.id;
             await firestore.collection('projects').doc(id).delete();
-            res.send("Delete Successfully")
+            res.status(200).send("Delete Successfully")
         }catch(error){
             res.status(404).send(error)
         }

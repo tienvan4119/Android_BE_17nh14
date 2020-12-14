@@ -10,7 +10,7 @@
        try{
             const data = req.body;
             await firestore.collection('tasks').doc().set(data);
-            res.send('task has been created successfully');
+            res.status(200).send('task has been created successfully');
         }catch (error){
            res.status(400).send(error.message);
        }
@@ -22,7 +22,7 @@
             const data  = await tasks.get();
             let groupArray = []
             if(data.empty){
-                res.status(404).send("No data found")
+                res.status(200).send(groupArray)
             }else{
                 data.forEach(doc => {
                     // console.log(doc.id, '=>', doc.data())
@@ -31,7 +31,7 @@
                     }
                     groupArray.push(task)
                   });
-                res.send(groupArray)
+                res.status(200).send(groupArray)
             }
              
         }catch(error){
@@ -51,7 +51,7 @@
             
             let groupArray = []
             if(data.empty){
-                res.status(404).send("No data found")
+                res.status(200).send(groupArray)
             }else{
                 data.forEach(doc => {
                     const task = {
@@ -59,7 +59,7 @@
                     }
                     groupArray.push(task)
                   })
-                res.send(groupArray)
+                res.status(200).send(groupArray)
             }
              
         }catch(error){
@@ -75,7 +75,7 @@
             const data  = await task.get();
             
             if(!data.exists){
-                res.status(404).send("Task with that given ID not found")
+                res.status(200).send("Task with that given ID not found")
             }else{           
                 const result = {
                     id: data.id, ...data.data()
@@ -88,6 +88,13 @@
         }   
     }
 
+    // async getTaskEachScreen(req, res){
+    //     const id = req.params.id;
+    //     const {state} = req.body
+    //     const 
+    // }
+
+
     async updateTask(req, res){
         try{
             const id = req.params.id;
@@ -98,7 +105,7 @@
             const result2 = {
                 id: result.id, ...result.data()
             }   
-            res.send(result2)
+            res.status(200).send(result2)
         }catch(error){
             res.status(404).send(error)
         }
@@ -108,7 +115,7 @@
         try{
             const id = req.params.id;
             await firestore.collection('tasks').doc(id).delete();
-            res.send("Delete Successfully")
+            res.status(200).send("Delete Successfully")
         }catch(error){
             res.status(404).send(error)
         }
@@ -124,7 +131,7 @@
             const result2 = {
                 id: result.id, ...result.data()
             }   
-            res.send(result2)
+            res.status(200).send(result2)
         }catch(error){
             res.status(404).send(error)
         }
