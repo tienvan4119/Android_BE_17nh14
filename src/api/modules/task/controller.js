@@ -92,9 +92,9 @@
         try{
             const id = req.params.id;
             const {state} = req.query
-            console.log(typeof(id))
+            console.log(id)
             // const tasks = firestore.collection('tasks');
-            const data = await firestore.collection('tasks').where('project_id', '==', '1KTIJxTEUyLvD9vwk93c').where('state', '==', state).get();
+            const data = await firestore.collection('tasks').where('project_id', '==', id).where('state', '==', state).get();
             // console.log(data)
             let groupArray = []
             if(data.empty){
